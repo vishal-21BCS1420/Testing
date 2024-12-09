@@ -1,9 +1,6 @@
 pipeline {
   agent { 
-    docker { 
-      image 'mcr.microsoft.com/playwright:v1.17.2-focal'
-      args '--shm-size=1gb' // Prevents browser crashes due to shared memory limits
-    }
+    docker any
   }
 
   stages {
