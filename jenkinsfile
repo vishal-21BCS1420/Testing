@@ -2,10 +2,12 @@ pipeline {
   agent { 
     docker { 
       image 'mcr.microsoft.com/playwright:v1.17.2-focal'
-      label 'docker'
+      args '--shm-size=1gb' // Prevents browser crashes due to shared memory limits
     }
+  }
+
   stages {
-    stage('install playwright') {
+    stage('Install Playwright') {
       steps {
         sh '''
           npm i -D @playwright/test
@@ -13,12 +15,14 @@ pipeline {
         '''
       }
     }
-    stage('help') {
+    
+    stage('Help') {
       steps {
         sh 'npx playwright test --help'
       }
     }
-    stage('test') {
+
+    stage('Run Tests') {
       steps {
         sh '''
           npx playwright test --list
@@ -26,8 +30,8 @@ pipeline {
         '''
       }
       post {
-            success {
-            archiveArtifacts(artifacts: 'homepage-*.png', followSymlinks: false)
+        success {
+          archiveArtifacts artifacts: 'homepage-*.png', followSymlinks: false
           sh 'rm -rf *.png'
         }
       }
