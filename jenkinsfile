@@ -1,7 +1,6 @@
-// pipeline {
-//   agent any 
-//   }
-//   stages {
+ pipeline {
+   agent any 
+   }   stages {
 //     stage('install playwright') {
 //       steps {
 //         sh '''
@@ -24,21 +23,10 @@
 //       }
 //     //   post {
 //     //     success {
-//     //       archiveArtifacts(artifacts: 'homepage-*.png', followSymlinks: false)
-//     //       sh 'rm -rf *.png'
-//     //     }
-//     //   }
-//     }
-//   }
-// }
-pipeline {
-   agent { docker { image 'mcr.microsoft.com/playwright:v1.49.0-noble' } }
-   stages {
-      stage('e2e-tests') {
-         steps {
-            sh 'npm ci'
-            sh 'npx playwright test'
-         }
-      }
+     //       archiveArtifacts(artifacts: 'homepage-*.png', followSymlinks: false)
+     //       sh 'rm -rf *.png'
+     //     }
+     //   }
+     }
    }
-}
+ }
